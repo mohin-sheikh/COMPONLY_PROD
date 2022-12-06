@@ -30,6 +30,9 @@ export class ValidationPipe implements PipeTransform {
     if (value.alternate_email) {
       value.alternate_email = value.alternate_email.toLowerCase();
     }
+    if (value.period) {
+      value.period = value.period.toLowerCase();
+    }
     return value;
   }
 }

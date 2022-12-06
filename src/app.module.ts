@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { CompanyModule } from './company/company.module';
 import { CompaniesPlansModule } from './companies_plans/companies_plans.module';
+import { PlansModule } from './plans/plans.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CompaniesPlansModule } from './companies_plans/companies_plans.module';
     ConfigModule,
     CompanyModule,
     CompaniesPlansModule,
+    PlansModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],

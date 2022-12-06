@@ -46,8 +46,9 @@ Authorization=Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjeXB8Y2JmN
 - [05. User profile [auth]](#05-user-profile-auth)
 - [06. Patch user profile [auth]](#06-patch-user-profile-auth)
 - [07. Change password [auth]](#07-change-password-auth)
-- [08. Register Company [auth]](#08-register-company-auth)
-- [09. Add Companies Plan [auth]](#09-add-companies-plan-auth)
+- [08. Add plans [auth]](#08-add-plans-auth)
+- [09. Register Company [auth]](#09-register-company-auth)
+- [10. Add Companies Plan [auth]](#10-add-companies-plan-auth)
 
 # _API End Point_
 
@@ -405,7 +406,55 @@ Updates current password for user. After updating the password, it clears all ac
 }
 ```
 
-## 08. Register Company [auth]
+## 08. Add plans [auth]
+
+**Route:**
+`/plans/register`
+
+**Method:**
+`POST`
+
+**Request payload:**
+
+```json
+{
+    "title": "testing",
+    "subtitle": "testing",
+    "description": "testing",
+    "price": 5630,
+    "period": "month",
+    "features": "xyz"
+}
+```
+
+⚠️ `period` coloumn only accept `null, month, year`..
+
+```json
+{
+    "status": 400,
+    "message": "Validation failed - period must be one of null, month, year",
+    "response": {}
+}
+```
+
+**✅ Sample response:**
+
+```json
+{
+    "status": 201,
+    "message": "Successfully registered",
+    "response": {
+        "id": 1,
+        "title": "testing",
+        "subtitle": "testing",
+        "description": "testing",
+        "price": 5630,
+        "period": "month"
+    }
+}
+```
+
+## 09. Register Company [auth]
 
 **Route:**
 `/company/register`
@@ -451,7 +500,7 @@ Updates current password for user. After updating the password, it clears all ac
 }
 ```
 
-## 09. Add Companies Plan [auth]
+## 10. Add Companies Plan [auth]
 
 **Route:**
 `/companies-plans/register`

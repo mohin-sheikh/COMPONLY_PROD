@@ -19,6 +19,7 @@ const users_module_1 = require("./users/users.module");
 const config_1 = require("@nestjs/config");
 const company_module_1 = require("./company/company.module");
 const companies_plans_module_1 = require("./companies_plans/companies_plans.module");
+const plans_module_1 = require("./plans/plans.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -33,6 +34,7 @@ AppModule = __decorate([
             config_1.ConfigModule,
             company_module_1.CompanyModule,
             companies_plans_module_1.CompaniesPlansModule,
+            plans_module_1.PlansModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.AuthController],
         providers: [app_service_1.AppService, auth_service_1.AuthService],

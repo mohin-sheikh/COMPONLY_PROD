@@ -39,6 +39,9 @@ let ValidationPipe = class ValidationPipe {
         if (value.alternate_email) {
             value.alternate_email = value.alternate_email.toLowerCase();
         }
+        if (value.period) {
+            value.period = value.period.toLowerCase();
+        }
         return value;
     }
 };
