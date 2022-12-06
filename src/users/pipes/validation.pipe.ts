@@ -15,9 +15,6 @@ export class ValidationPipe implements PipeTransform {
         response: {},
       });
     }
-    if (value.name) {
-      value.name = value.name.toLowerCase().trimStart().trimEnd();
-    }
     if (value.first_name) {
       value.first_name = value.first_name.toLowerCase().trimStart().trimEnd();
     }
@@ -29,9 +26,6 @@ export class ValidationPipe implements PipeTransform {
     }
     if (value.alternate_email) {
       value.alternate_email = value.alternate_email.toLowerCase();
-    }
-    if (value.period) {
-      value.period = value.period.toLowerCase();
     }
     return value;
   }

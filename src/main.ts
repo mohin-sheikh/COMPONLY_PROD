@@ -37,8 +37,8 @@ async function bootstrap() {
   app.enableCors();
 
   const globalPrefix = 'api';
-  const port = configService.get<string>('PORT') || 3000;
-  const host = configService.get<string>('0.0.0.0') || '0.0.0.0';
+  const port = process.env.PORT || 3000;
+  const host = process.env.HOST || '0.0.0.0';
 
   await app.listen(port, host);
   Logger.log(

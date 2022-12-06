@@ -35,7 +35,7 @@ import { ForgotPasswordDTO } from './dto/forgot-password.dto';
 import * as moment from 'moment-timezone';
 import * as mailTemplate from '../helper/template.helper';
 import { ForgotPasswordVerifyDTO } from './dto/forgot-passwordVerify.dto';
-import { message } from 'src/utils/response.message';
+import { message } from 'config/response.message.config';
 
 @ApiTags('AUTH')
 @Controller('auth')
@@ -74,7 +74,6 @@ export class AuthController {
           id: user.id,
           full_name: user.full_name,
           email: user.email,
-          stripe_customer_id: user.stripe_customer_id,
         },
       };
     } catch (error) {
