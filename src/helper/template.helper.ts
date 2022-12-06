@@ -4,10 +4,9 @@ let forgot = `Hi <b>#var</b>, <br><br>This is your OTP <b>#var</b> for <b>Verify
 
 let welcomeTemplate = `Hi <b>#var</b>,
 <br>Welcome to Componly.co – we’re excited to have you on board and we’d love to say thank you on behalf of our whole company for chosing us. 
-<br>We believe our service will help you service benefits.
-<br>To ensure you gain the very best out of our service
-<br><br>Have any questions or need more information? Just shoot us an email! 
-<br>We’re always here to help. Feel free to hit us up on https://componly.co
+<br>We believe our service will help you service benefits. To ensure you gain the very best out of our service
+<br>Have any questions or need more information? Just shoot us an email, We’re always here to help. 
+<br>Feel free to hit us up on https://componly.co
 <br><br>Thank you for choosing us!
 <br>Take care,`;
 
