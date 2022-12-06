@@ -8,8 +8,7 @@ let welcomeTemplate = `Hi <b>#var</b>,
 <br>We believe our service will help you service benefits. To ensure you gain the very best out of our service
 <br>Have any questions or need more information? Just shoot us an email, We’re always here to help. 
 <br>Feel free to hit us up on https://componly.co
-<br><br>Thank you for choosing us!
-<br>Take care,`;
+<br><br>Take care,`;
 const welcome = (name) => {
     const obj = {
         name: name.toUpperCase(),
