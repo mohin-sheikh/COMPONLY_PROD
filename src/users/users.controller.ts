@@ -28,7 +28,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
-import { message } from 'config/response.message.config';
+import { message } from 'src/config/response.message.config';
 
 @ApiTags('USER')
 @Controller('users')

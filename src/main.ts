@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
   app.enableCors({
-    origin: configService.get('FRONTEND_URL'),
+    origin: configService.get<string>('FRONTEND_URL'),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
@@ -37,8 +37,8 @@ async function bootstrap() {
   app.enableCors();
 
   const globalPrefix = 'api';
-  const port = process.env.PORT || 3000;
-  const host = process.env.HOST || '0.0.0.0';
+  const port = configService.get<string>('PORT') || 3000;
+  const host = configService.get<string>('HOST') || '0.0.0.0';
 
   await app.listen(port, host);
   Logger.log(

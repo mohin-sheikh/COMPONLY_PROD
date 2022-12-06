@@ -22,7 +22,6 @@ import * as bcrypt from 'bcrypt';
 import CreateDto from 'src/users/dto/create.dto';
 import { ValidationPipe } from 'src/users/pipes/validation.pipe';
 import { UsersService } from 'src/users/users.service';
-import { generateOTP } from 'src/utils/service.util';
 import {
   forgotPass,
   forgotPassVerify,
@@ -35,7 +34,8 @@ import { ForgotPasswordDTO } from './dto/forgot-password.dto';
 import * as moment from 'moment-timezone';
 import * as mailTemplate from '../helper/template.helper';
 import { ForgotPasswordVerifyDTO } from './dto/forgot-passwordVerify.dto';
-import { message } from 'config/response.message.config';
+import { message } from 'src/config/response.message.config';
+import { generateOTP } from 'src/helper/otp.service.helper';
 
 @ApiTags('AUTH')
 @Controller('auth')
@@ -67,6 +67,13 @@ export class AuthController {
       }
 
       const user = await this.usersService.create(createUserDto);
+
+      await this.authService.sendMail(
+        createUserDto.email,
+        'Welcome!',
+        mailTemplate.welcome(user.first_name),
+      );
+
       return {
         status: HttpStatus.CREATED,
         message: message.RegisterUserSuccess,
