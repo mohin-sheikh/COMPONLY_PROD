@@ -5,11 +5,13 @@ import User from './entities/user.entity';
 import { CreateDto } from './dto/create.dto';
 import { Payload } from 'src/auth/types/payload';
 import Users from './entities/user.entity';
+import StripeService from 'src/stripe/stripe.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    private stripeService: StripeService,
   ) {}
 
   async findByEmail(email: any) {
@@ -32,12 +34,18 @@ export class UsersService {
   }
 
   async create(userDTO: CreateDto) {
+    const stripeCustomer = await this.stripeService.createCustomer(
+      userDTO.first_name + ' ' + userDTO.last_name,
+      userDTO.email,
+    );
+
     const user = this.userRepository.create({
       full_name: userDTO.first_name + ' ' + userDTO.last_name,
       first_name: userDTO.first_name,
       last_name: userDTO.last_name,
       email: userDTO.email,
       password: userDTO.password,
+      stripe_customer_id: stripeCustomer.id,
       stripe_card_id: userDTO.stripe_card_id,
       company_id: userDTO.company_id,
       invitation_id: userDTO.invitation_id,

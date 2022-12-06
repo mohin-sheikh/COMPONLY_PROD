@@ -5,6 +5,8 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import StripeService from 'src/stripe/stripe.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, StripeService, ConfigService],
   exports: [UsersService],
 })
 export class UsersModule {}

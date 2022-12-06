@@ -81,6 +81,7 @@ export class AuthController {
           id: user.id,
           full_name: user.full_name,
           email: user.email,
+          stripe_customer_id: user.stripe_customer_id,
         },
       };
     } catch (error) {

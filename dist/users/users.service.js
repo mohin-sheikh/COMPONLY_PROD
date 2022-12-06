@@ -18,9 +18,11 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entities/user.entity");
 const user_entity_2 = require("./entities/user.entity");
+const stripe_service_1 = require("../stripe/stripe.service");
 let UsersService = class UsersService {
-    constructor(userRepository) {
+    constructor(userRepository, stripeService) {
         this.userRepository = userRepository;
+        this.stripeService = stripeService;
     }
     async findByEmail(email) {
         return this.userRepository
@@ -40,12 +42,14 @@ let UsersService = class UsersService {
         });
     }
     async create(userDTO) {
+        const stripeCustomer = await this.stripeService.createCustomer(userDTO.first_name + ' ' + userDTO.last_name, userDTO.email);
         const user = this.userRepository.create({
             full_name: userDTO.first_name + ' ' + userDTO.last_name,
             first_name: userDTO.first_name,
             last_name: userDTO.last_name,
             email: userDTO.email,
             password: userDTO.password,
+            stripe_customer_id: stripeCustomer.id,
             stripe_card_id: userDTO.stripe_card_id,
             company_id: userDTO.company_id,
             invitation_id: userDTO.invitation_id,
@@ -95,7 +99,8 @@ let UsersService = class UsersService {
 UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.default)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        stripe_service_1.default])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

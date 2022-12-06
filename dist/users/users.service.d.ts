@@ -2,9 +2,11 @@ import { Repository } from 'typeorm';
 import User from './entities/user.entity';
 import { CreateDto } from './dto/create.dto';
 import { Payload } from 'src/auth/types/payload';
+import StripeService from 'src/stripe/stripe.service';
 export declare class UsersService {
     private userRepository;
-    constructor(userRepository: Repository<User>);
+    private stripeService;
+    constructor(userRepository: Repository<User>, stripeService: StripeService);
     findByEmail(email: any): Promise<User>;
     findByPayload(payload: Payload): Promise<User>;
     create(userDTO: CreateDto): Promise<User>;

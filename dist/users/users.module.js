@@ -14,6 +14,8 @@ const users_service_1 = require("./users.service");
 const users_controller_1 = require("./users.controller");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
+const stripe_service_1 = require("../stripe/stripe.service");
+const config_1 = require("@nestjs/config");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
@@ -27,7 +29,7 @@ UsersModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.default]),
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService],
+        providers: [users_service_1.UsersService, stripe_service_1.default, config_1.ConfigService],
         exports: [users_service_1.UsersService],
     })
 ], UsersModule);

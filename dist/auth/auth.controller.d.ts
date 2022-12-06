@@ -17,6 +17,7 @@ export declare class AuthController {
             id?: undefined;
             full_name?: undefined;
             email?: undefined;
+            stripe_customer_id?: undefined;
         };
         error?: undefined;
     } | {
@@ -26,6 +27,7 @@ export declare class AuthController {
             id: number;
             full_name: string;
             email: string;
+            stripe_customer_id: string;
         };
         error?: undefined;
     } | {
@@ -35,6 +37,7 @@ export declare class AuthController {
             id?: undefined;
             full_name?: undefined;
             email?: undefined;
+            stripe_customer_id?: undefined;
         };
         message?: undefined;
     }>;
