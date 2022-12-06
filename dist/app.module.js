@@ -17,7 +17,8 @@ const database_module_1 = require("./database/database.module");
 const logger_middleware_1 = require("./logger.middleware");
 const users_module_1 = require("./users/users.module");
 const config_1 = require("@nestjs/config");
-const Joi = require("@hapi/joi");
+const company_module_1 = require("./company/company.module");
+const companies_plans_module_1 = require("./companies_plans/companies_plans.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -30,13 +31,8 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             config_1.ConfigModule,
-            config_1.ConfigModule.forRoot({
-                validationSchema: Joi.object({
-                    STRIPE_SECRET_KEY: Joi.string(),
-                    STRIPE_CURRENCY: Joi.string(),
-                    FRONTEND_URL: Joi.string(),
-                }),
-            }),
+            company_module_1.CompanyModule,
+            companies_plans_module_1.CompaniesPlansModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.AuthController],
         providers: [app_service_1.AppService, auth_service_1.AuthService],

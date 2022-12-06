@@ -16,4 +16,8 @@ export const message = {
   passWrong: `Password is wrong.`,
   alreadyInUse: `Email Already Taken Please choose another One.`,
   successUpdate: `Record has been updated Successfully`,
+
+  // COMPANY
+  RegisterCompanySuccess: `Successfully registered`,
+  alreadyUseName: `Name Already Registered Please choose another One.`,
 };

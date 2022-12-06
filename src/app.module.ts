@@ -8,7 +8,8 @@ import { DatabaseModule } from './database/database.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
+import { CompanyModule } from './company/company.module';
+import { CompaniesPlansModule } from './companies_plans/companies_plans.module';
 
 @Module({
   imports: [
@@ -16,13 +17,8 @@ import * as Joi from '@hapi/joi';
     UsersModule,
     AuthModule,
     ConfigModule,
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        STRIPE_SECRET_KEY: Joi.string(),
-        STRIPE_CURRENCY: Joi.string(),
-        FRONTEND_URL: Joi.string(),
-      }),
-    }),
+    CompanyModule,
+    CompaniesPlansModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],

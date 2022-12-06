@@ -46,6 +46,8 @@ Authorization=Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjeXB8Y2JmN
 - [05. User profile [auth]](#05-user-profile-auth)
 - [06. Patch user profile [auth]](#06-patch-user-profile-auth)
 - [07. Change password [auth]](#07-change-password-auth)
+- [08. Register Company [auth]](#08-register-company-auth)
+- [09. Add Companies Plan [auth]](#09-add-companies-plan-auth)
 
 # _API End Point_
 
@@ -400,5 +402,85 @@ Updates current password for user. After updating the password, it clears all ac
     "status": 200,
     "message": "Password has been successfully updated.",
     "response": {}
+}
+```
+
+## 08. Register Company [auth]
+
+**Route:**
+`/company/register`
+
+**Method:**
+`POST`
+
+**Request payload:**
+
+```json
+{
+    "name": "xyz pvt. co.",
+    "logo": "testimage.com",
+    "seats": 23
+}
+```
+
+- `name` and `sats` is required.
+- `logo` is optional.
+
+⚠️ if company name is already rgisterd
+
+```json
+{
+    "status": 400,
+    "message": "Name Already Registered Please choose another One.",
+    "response": {}
+}
+```
+
+**✅ Sample response:**
+
+```json
+{
+    "status": 201,
+    "message": "Successfully registered",
+    "response": {
+        "id": 1,
+        "name": "xyz pvt. co.",
+        "logo": "testimage.com",
+        "seats": 23
+    }
+}
+```
+
+## 09. Add Companies Plan [auth]
+
+**Route:**
+`/companies-plans/register`
+
+**Method:**
+`POST`
+
+**Request payload:**
+
+```json
+{
+    "company_id" : 1,
+    "plan_id" : 1
+}
+```
+
+- `company_id` and `plan_id` is required.
+- `status` is optional.
+
+**✅ Sample response:**
+
+```json
+{
+    "status": 201,
+    "message": "Successfully registered",
+    "response": {
+        "id": 1,
+        "company_id": 1,
+        "admin_id": 1
+    }
 }
 ```
