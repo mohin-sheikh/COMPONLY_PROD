@@ -20,6 +20,9 @@ const config_1 = require("@nestjs/config");
 const company_module_1 = require("./company/company.module");
 const companies_plans_module_1 = require("./companies_plans/companies_plans.module");
 const plans_module_1 = require("./plans/plans.module");
+const roles_module_1 = require("./roles/roles.module");
+const user_roles_module_1 = require("./user_roles/user_roles.module");
+const invitations_module_1 = require("./invitations/invitations.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -35,6 +38,9 @@ AppModule = __decorate([
             company_module_1.CompanyModule,
             companies_plans_module_1.CompaniesPlansModule,
             plans_module_1.PlansModule,
+            invitations_module_1.InvitationsModule,
+            roles_module_1.RolesModule,
+            user_roles_module_1.UserRolesModule,
         ],
         controllers: [app_controller_1.AppController, auth_controller_1.AuthController],
         providers: [app_service_1.AppService, auth_service_1.AuthService],

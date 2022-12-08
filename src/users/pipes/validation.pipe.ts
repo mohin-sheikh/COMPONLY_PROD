@@ -33,6 +33,12 @@ export class ValidationPipe implements PipeTransform {
     if (value.period) {
       value.period = value.period.toLowerCase();
     }
+    if (value.permission) {
+      value.permission = value.permission.toLowerCase();
+    }
+    if (value.current_status) {
+      value.current_status = value.current_status.toLowerCase();
+    }
     return value;
   }
 }

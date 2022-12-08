@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, EntityManager } from 'typeorm';
 import User from './entities/user.entity';
 import { CreateDto } from './dto/create.dto';
 import { Payload } from 'src/auth/types/payload';
 import Users from './entities/user.entity';
 import StripeService from 'src/stripe/stripe.service';
+import { CompanyService } from 'src/company/company.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private stripeService: StripeService,
+    private readonly entityManager: EntityManager,
   ) {}
 
   async findByEmail(email: any) {
@@ -33,28 +35,38 @@ export class UsersService {
     });
   }
 
-  async create(userDTO: CreateDto) {
-    const stripeCustomer = await this.stripeService.createCustomer(
-      userDTO.first_name + ' ' + userDTO.last_name,
-      userDTO.email,
-    );
+  async create(userDTO: CreateDto): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.entityManager.transaction(async (manager: EntityManager) => {
+          const stripeCustomer = await this.stripeService.createCustomer(
+            userDTO.first_name + ' ' + userDTO.last_name,
+            userDTO.email,
+          );
 
-    const user = this.userRepository.create({
-      full_name: userDTO.first_name + ' ' + userDTO.last_name,
-      first_name: userDTO.first_name,
-      last_name: userDTO.last_name,
-      email: userDTO.email,
-      password: userDTO.password,
-      stripe_customer_id: stripeCustomer.id,
-      stripe_card_id: userDTO.stripe_card_id,
-      company_id: userDTO.company_id,
-      invitation_id: userDTO.invitation_id,
-      profile: userDTO.profile,
-      created_at: new Date(),
-      updated_at: new Date(),
+          const user = this.userRepository.create({
+            full_name: userDTO.first_name + ' ' + userDTO.last_name,
+            first_name: userDTO.first_name,
+            last_name: userDTO.last_name,
+            email: userDTO.email,
+            password: userDTO.password,
+            stripe_customer_id: stripeCustomer.id,
+            stripe_card_id: userDTO.stripe_card_id,
+            company_id: userDTO.company_id,
+            invitation_id: userDTO.invitation_id,
+            profile: userDTO.profile,
+            created_at: new Date(),
+            updated_at: new Date(),
+          });
+
+          await manager.save(user);
+
+          resolve(user);
+        });
+      } catch (error) {
+        reject(error);
+      }
     });
-    await this.userRepository.save(user);
-    return user;
   }
 
   add(user: any) {

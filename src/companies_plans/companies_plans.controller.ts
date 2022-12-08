@@ -51,7 +51,7 @@ export class CompaniesPlansController {
       );
       return {
         status: HttpStatus.CREATED,
-        message: message.RegisterCompanySuccess,
+        message: message.registerSuccess,
         response: {
           id: companyPlan.id,
           company_id: companyPlan.company_id,

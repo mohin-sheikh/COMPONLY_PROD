@@ -35,7 +35,7 @@ export class CompanyController {
   @ApiBearerAuth('JWT-auth')
   @ApiBody({ type: CreateCompanyDto })
   @ApiCreatedResponse({
-    description: message.RegisterCompanySuccess,
+    description: message.registerSuccess,
   })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
@@ -63,7 +63,7 @@ export class CompanyController {
       );
       return {
         status: HttpStatus.CREATED,
-        message: message.RegisterCompanySuccess,
+        message: message.registerSuccess,
         response: {
           id: company.id,
           name: company.name,

@@ -39,7 +39,7 @@ let CompanyController = class CompanyController {
             const company = await this.companyService.create(createCompanyDto, request.user.full_name);
             return {
                 status: common_1.HttpStatus.CREATED,
-                message: response_message_config_1.message.RegisterCompanySuccess,
+                message: response_message_config_1.message.registerSuccess,
                 response: {
                     id: company.id,
                     name: company.name,
@@ -65,7 +65,7 @@ __decorate([
     (0, swagger_1.ApiBearerAuth)('JWT-auth'),
     (0, swagger_1.ApiBody)({ type: create_company_dto_1.default }),
     (0, swagger_1.ApiCreatedResponse)({
-        description: response_message_config_1.message.RegisterCompanySuccess,
+        description: response_message_config_1.message.registerSuccess,
     }),
     (0, swagger_1.ApiUnauthorizedResponse)({
         description: 'Unauthorized',

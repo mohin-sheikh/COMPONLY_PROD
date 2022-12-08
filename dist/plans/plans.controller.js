@@ -31,7 +31,7 @@ let PlansController = class PlansController {
             const plan = await this.plansService.create(createPlanDto);
             return {
                 status: common_1.HttpStatus.CREATED,
-                message: response_message_config_1.message.RegisterCompanySuccess,
+                message: response_message_config_1.message.registerSuccess,
                 response: {
                     id: plan.id,
                     title: plan.title,
@@ -59,7 +59,7 @@ __decorate([
     (0, swagger_1.ApiBearerAuth)('JWT-auth'),
     (0, swagger_1.ApiBody)({ type: create_plan_dto_1.CreatePlanDto }),
     (0, swagger_1.ApiCreatedResponse)({
-        description: response_message_config_1.message.RegisterCompanySuccess,
+        description: response_message_config_1.message.registerSuccess,
     }),
     (0, swagger_1.ApiUnauthorizedResponse)({
         description: 'Unauthorized',

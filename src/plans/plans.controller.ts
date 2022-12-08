@@ -33,7 +33,7 @@ export class PlansController {
   @ApiBearerAuth('JWT-auth')
   @ApiBody({ type: CreatePlanDto })
   @ApiCreatedResponse({
-    description: message.RegisterCompanySuccess,
+    description: message.registerSuccess,
   })
   @ApiUnauthorizedResponse({
     description: 'Unauthorized',
@@ -43,7 +43,7 @@ export class PlansController {
       const plan = await this.plansService.create(createPlanDto);
       return {
         status: HttpStatus.CREATED,
-        message: message.RegisterCompanySuccess,
+        message: message.registerSuccess,
         response: {
           id: plan.id,
           title: plan.title,

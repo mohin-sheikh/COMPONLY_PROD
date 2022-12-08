@@ -16,12 +16,14 @@ const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const stripe_service_1 = require("../stripe/stripe.service");
 const config_1 = require("@nestjs/config");
+const company_module_1 = require("../company/company.module");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [
             passport_1.PassportModule,
+            company_module_1.CompanyModule,
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_SECRET,
                 signOptions: { expiresIn: '60s' },

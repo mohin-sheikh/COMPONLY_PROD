@@ -19,7 +19,8 @@ exports.message = {
     passWrong: `Password is wrong.`,
     alreadyInUse: `Email Already Taken Please choose another One.`,
     successUpdate: `Record has been updated Successfully`,
-    RegisterCompanySuccess: `Successfully registered`,
+    registerSuccess: `Successfully registered`,
     alreadyUseName: `Name Already Registered Please choose another One.`,
+    sentInvitationSuccess: `Successfully sent Invitation`,
 };
 //# sourceMappingURL=response.message.config.js.map

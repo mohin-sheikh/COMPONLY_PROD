@@ -7,10 +7,12 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import StripeService from 'src/stripe/stripe.service';
 import { ConfigService } from '@nestjs/config';
+import { CompanyModule } from 'src/company/company.module';
 
 @Module({
   imports: [
     PassportModule,
+    CompanyModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },

@@ -11,6 +11,9 @@ import { ConfigModule } from '@nestjs/config';
 import { CompanyModule } from './company/company.module';
 import { CompaniesPlansModule } from './companies_plans/companies_plans.module';
 import { PlansModule } from './plans/plans.module';
+import { RolesModule } from './roles/roles.module';
+import { UserRolesModule } from './user_roles/user_roles.module';
+import { InvitationsModule } from './invitations/invitations.module';
 
 @Module({
   imports: [
@@ -21,6 +24,9 @@ import { PlansModule } from './plans/plans.module';
     CompanyModule,
     CompaniesPlansModule,
     PlansModule,
+    InvitationsModule,
+    RolesModule,
+    UserRolesModule,
   ],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],

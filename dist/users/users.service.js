@@ -20,9 +20,10 @@ const user_entity_1 = require("./entities/user.entity");
 const user_entity_2 = require("./entities/user.entity");
 const stripe_service_1 = require("../stripe/stripe.service");
 let UsersService = class UsersService {
-    constructor(userRepository, stripeService) {
+    constructor(userRepository, stripeService, entityManager) {
         this.userRepository = userRepository;
         this.stripeService = stripeService;
+        this.entityManager = entityManager;
     }
     async findByEmail(email) {
         return this.userRepository
@@ -42,23 +43,32 @@ let UsersService = class UsersService {
         });
     }
     async create(userDTO) {
-        const stripeCustomer = await this.stripeService.createCustomer(userDTO.first_name + ' ' + userDTO.last_name, userDTO.email);
-        const user = this.userRepository.create({
-            full_name: userDTO.first_name + ' ' + userDTO.last_name,
-            first_name: userDTO.first_name,
-            last_name: userDTO.last_name,
-            email: userDTO.email,
-            password: userDTO.password,
-            stripe_customer_id: stripeCustomer.id,
-            stripe_card_id: userDTO.stripe_card_id,
-            company_id: userDTO.company_id,
-            invitation_id: userDTO.invitation_id,
-            profile: userDTO.profile,
-            created_at: new Date(),
-            updated_at: new Date(),
+        return new Promise(async (resolve, reject) => {
+            try {
+                await this.entityManager.transaction(async (manager) => {
+                    const stripeCustomer = await this.stripeService.createCustomer(userDTO.first_name + ' ' + userDTO.last_name, userDTO.email);
+                    const user = this.userRepository.create({
+                        full_name: userDTO.first_name + ' ' + userDTO.last_name,
+                        first_name: userDTO.first_name,
+                        last_name: userDTO.last_name,
+                        email: userDTO.email,
+                        password: userDTO.password,
+                        stripe_customer_id: stripeCustomer.id,
+                        stripe_card_id: userDTO.stripe_card_id,
+                        company_id: userDTO.company_id,
+                        invitation_id: userDTO.invitation_id,
+                        profile: userDTO.profile,
+                        created_at: new Date(),
+                        updated_at: new Date(),
+                    });
+                    await manager.save(user);
+                    resolve(user);
+                });
+            }
+            catch (error) {
+                reject(error);
+            }
         });
-        await this.userRepository.save(user);
-        return user;
     }
     add(user) {
         return this.userRepository.save(user);
@@ -100,7 +110,8 @@ UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.default)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        stripe_service_1.default])
+        stripe_service_1.default,
+        typeorm_2.EntityManager])
 ], UsersService);
 exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map

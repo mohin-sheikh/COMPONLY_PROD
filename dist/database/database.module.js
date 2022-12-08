@@ -14,6 +14,9 @@ const config_1 = require("@nestjs/config");
 const company_entity_1 = require("../company/entities/company.entity");
 const companies_plan_entity_1 = require("../companies_plans/entities/companies_plan.entity");
 const plan_entity_1 = require("../plans/entities/plan.entity");
+const role_entity_1 = require("../roles/entities/role.entity");
+const user_role_entity_1 = require("../user_roles/entities/user_role.entity");
+const invitation_entity_1 = require("../invitations/entities/invitation.entity");
 let DatabaseModule = class DatabaseModule {
 };
 DatabaseModule = __decorate([
@@ -29,7 +32,15 @@ DatabaseModule = __decorate([
                     username: configService.get('POSTGRES_USER'),
                     password: configService.get('POSTGRES_PASSWORD'),
                     database: configService.get('POSTGRES_DB'),
-                    entities: [user_entity_1.default, company_entity_1.default, companies_plan_entity_1.default, plan_entity_1.default],
+                    entities: [
+                        user_entity_1.default,
+                        company_entity_1.default,
+                        companies_plan_entity_1.default,
+                        plan_entity_1.default,
+                        role_entity_1.default,
+                        user_role_entity_1.default,
+                        invitation_entity_1.default,
+                    ],
                 }),
             }),
         ],

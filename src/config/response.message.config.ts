@@ -18,6 +18,8 @@ export const message = {
   successUpdate: `Record has been updated Successfully`,
 
   // COMPANY
-  RegisterCompanySuccess: `Successfully registered`,
+  registerSuccess: `Successfully registered`,
   alreadyUseName: `Name Already Registered Please choose another One.`,
+
+  sentInvitationSuccess: `Successfully sent Invitation`,
 };

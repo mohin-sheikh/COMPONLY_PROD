@@ -16,6 +16,7 @@ export declare const message: {
     passWrong: string;
     alreadyInUse: string;
     successUpdate: string;
-    RegisterCompanySuccess: string;
+    registerSuccess: string;
     alreadyUseName: string;
+    sentInvitationSuccess: string;
 };

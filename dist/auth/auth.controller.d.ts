@@ -24,10 +24,10 @@ export declare class AuthController {
         status: HttpStatus;
         message: string;
         response: {
-            id: number;
-            full_name: string;
-            email: string;
-            stripe_customer_id: string;
+            id: any;
+            full_name: any;
+            email: any;
+            stripe_customer_id: any;
         };
         error?: undefined;
     } | {

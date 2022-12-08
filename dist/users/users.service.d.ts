@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, EntityManager } from 'typeorm';
 import User from './entities/user.entity';
 import { CreateDto } from './dto/create.dto';
 import { Payload } from 'src/auth/types/payload';
@@ -6,10 +6,11 @@ import StripeService from 'src/stripe/stripe.service';
 export declare class UsersService {
     private userRepository;
     private stripeService;
-    constructor(userRepository: Repository<User>, stripeService: StripeService);
+    private readonly entityManager;
+    constructor(userRepository: Repository<User>, stripeService: StripeService, entityManager: EntityManager);
     findByEmail(email: any): Promise<User>;
     findByPayload(payload: Payload): Promise<User>;
-    create(userDTO: CreateDto): Promise<User>;
+    create(userDTO: CreateDto): Promise<any>;
     add(user: any): Promise<any>;
     findAll(): Promise<User[]>;
     findOne(id: any): Promise<User>;
