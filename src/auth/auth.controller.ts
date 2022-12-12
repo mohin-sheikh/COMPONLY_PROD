@@ -19,7 +19,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
-import CreateDto from 'src/users/dto/create.dto';
 import { ValidationPipe } from 'src/users/pipes/validation.pipe';
 import { UsersService } from 'src/users/users.service';
 import {
@@ -36,6 +35,8 @@ import * as mailTemplate from '../helper/template.helper';
 import { ForgotPasswordVerifyDTO } from './dto/forgot-passwordVerify.dto';
 import { message } from 'src/config/response.message.config';
 import { generateOTP } from 'src/helper/otp.service.helper';
+import { sendMail } from 'src/helper/sendmail.helper';
+import { RegisterUserDto } from 'src/users/dto/register.dto';
 
 @ApiTags('AUTH')
 @Controller('auth')
@@ -47,17 +48,18 @@ export class AuthController {
   ) {}
 
   @Post('/register')
-  @UsePipes(new ValidationPipe(registerUserSchema))
   @ApiCreatedResponse({
     description: message.RegisterUserSuccess,
   })
   @ApiBadRequestResponse({
     description: message.alreadyUseEmail,
   })
-  @ApiBody({ type: CreateDto })
-  async create(@Body() createUserDto: CreateDto) {
+  @ApiBody({ type: RegisterUserDto })
+  async create(@Body() registerUserDto: RegisterUserDto) {
     try {
-      const findUser = await this.usersService.findByEmail(createUserDto.email);
+      const findUser = await this.usersService.findByEmail(
+        registerUserDto.user.email,
+      );
       if (findUser) {
         return {
           status: HttpStatus.BAD_REQUEST,
@@ -66,12 +68,12 @@ export class AuthController {
         };
       }
 
-      const user = await this.usersService.create(createUserDto);
+      const user = await this.usersService.create(registerUserDto);
 
-      await this.authService.sendMail(
-        createUserDto.email,
+      await sendMail(
+        registerUserDto.user.email,
         'Welcome!',
-        mailTemplate.welcome(user.first_name),
+        mailTemplate.welcome(user.full_name),
       );
 
       return {
@@ -167,10 +169,10 @@ export class AuthController {
       user.code_expiry = moment().add(15, 'minutes').toDate(); // OTP valid for 15 minutes
       await this.usersService.add(user);
 
-      await this.authService.sendMail(
+      await sendMail(
         forgotPasswordDTO.email,
         'Verify Forgot Password',
-        mailTemplate.forgotPass(user.first_name, user.otp),
+        mailTemplate.forgotPass(user.full_name, user.otp),
       );
       return {
         status: HttpStatus.OK,

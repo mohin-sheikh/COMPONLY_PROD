@@ -20,6 +20,7 @@ const config_1 = require("@nestjs/config");
 const company_module_1 = require("./company/company.module");
 const companies_plans_module_1 = require("./companies_plans/companies_plans.module");
 const plans_module_1 = require("./plans/plans.module");
+const companyUserMap_module_1 = require("./companyUserMap/companyUserMap.module");
 const roles_module_1 = require("./roles/roles.module");
 const user_roles_module_1 = require("./user_roles/user_roles.module");
 const invitations_module_1 = require("./invitations/invitations.module");
@@ -39,6 +40,7 @@ AppModule = __decorate([
             companies_plans_module_1.CompaniesPlansModule,
             plans_module_1.PlansModule,
             invitations_module_1.InvitationsModule,
+            companyUserMap_module_1.CompanyUserMapModule,
             roles_module_1.RolesModule,
             user_roles_module_1.UserRolesModule,
         ],

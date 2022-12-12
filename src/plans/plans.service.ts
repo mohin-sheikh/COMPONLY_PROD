@@ -17,7 +17,6 @@ export class PlansService {
       created_at: new Date(),
       updated_at: new Date(),
     });
-    await this.planRepository.save(plan);
     return plan;
   }
 }

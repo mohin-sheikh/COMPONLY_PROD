@@ -16,11 +16,7 @@ class UpdateDto {
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], UpdateDto.prototype, "first_name", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], UpdateDto.prototype, "last_name", void 0);
+], UpdateDto.prototype, "full_name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

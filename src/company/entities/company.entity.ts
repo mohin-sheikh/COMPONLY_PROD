@@ -14,9 +14,6 @@ class Companies {
   @Column()
   public seats: number;
 
-  @Column()
-  public created_by: string;
-
   @Column({
     default: false,
   })

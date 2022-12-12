@@ -1,16 +1,16 @@
 import { HttpStatus } from '@nestjs/common';
-import CreateDto from 'src/users/dto/create.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LoginWithEmail } from './dto/email-login.dto';
 import { ForgotPasswordDTO } from './dto/forgot-password.dto';
 import { ForgotPasswordVerifyDTO } from './dto/forgot-passwordVerify.dto';
+import { RegisterUserDto } from 'src/users/dto/register.dto';
 export declare class AuthController {
     private readonly authService;
     private usersService;
     private readonly logger;
     constructor(authService: AuthService, usersService: UsersService);
-    create(createUserDto: CreateDto): Promise<{
+    create(registerUserDto: RegisterUserDto): Promise<{
         status: HttpStatus;
         message: string;
         response: {

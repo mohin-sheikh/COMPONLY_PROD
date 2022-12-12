@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompanyModule = void 0;
 const common_1 = require("@nestjs/common");
 const company_service_1 = require("./company.service");
-const company_controller_1 = require("./company.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const company_entity_1 = require("./entities/company.entity");
 let CompanyModule = class CompanyModule {
@@ -17,8 +16,8 @@ let CompanyModule = class CompanyModule {
 CompanyModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([company_entity_1.default])],
-        controllers: [company_controller_1.CompanyController],
         providers: [company_service_1.CompanyService],
+        exports: [company_service_1.CompanyService],
     })
 ], CompanyModule);
 exports.CompanyModule = CompanyModule;

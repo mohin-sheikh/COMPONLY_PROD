@@ -28,17 +28,14 @@ let CompanyService = class CompanyService {
             .andWhere('companies.is_deleted = :is_deleted', { is_deleted: false })
             .getOne();
     }
-    async create(createCompanyDto, name) {
-        const company = this.companyRepository.create({
+    async create(createCompanyDto) {
+        return this.companyRepository.create({
             name: createCompanyDto.name,
             logo: createCompanyDto.logo,
             seats: createCompanyDto.seats,
-            created_by: name,
             created_at: new Date(),
             updated_at: new Date(),
         });
-        await this.companyRepository.save(company);
-        return company;
     }
 };
 CompanyService = __decorate([

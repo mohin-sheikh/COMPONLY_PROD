@@ -19,9 +19,19 @@ const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entities/user.entity");
 const user_entity_2 = require("./entities/user.entity");
 const stripe_service_1 = require("../stripe/stripe.service");
+const company_service_1 = require("../company/company.service");
+const plans_service_1 = require("../plans/plans.service");
+const companyUserMap_service_1 = require("../companyUserMap/companyUserMap.service");
+const user_roles_service_1 = require("../user_roles/user_roles.service");
+const companies_plans_service_1 = require("../companies_plans/companies_plans.service");
 let UsersService = class UsersService {
-    constructor(userRepository, stripeService, entityManager) {
+    constructor(userRepository, companyService, plansService, companiesPlansService, companyUserMapService, userRolesService, stripeService, entityManager) {
         this.userRepository = userRepository;
+        this.companyService = companyService;
+        this.plansService = plansService;
+        this.companiesPlansService = companiesPlansService;
+        this.companyUserMapService = companyUserMapService;
+        this.userRolesService = userRolesService;
         this.stripeService = stripeService;
         this.entityManager = entityManager;
     }
@@ -42,26 +52,33 @@ let UsersService = class UsersService {
             },
         });
     }
-    async create(userDTO) {
+    async create(registerUserDto) {
         return new Promise(async (resolve, reject) => {
             try {
                 await this.entityManager.transaction(async (manager) => {
-                    const stripeCustomer = await this.stripeService.createCustomer(userDTO.first_name + ' ' + userDTO.last_name, userDTO.email);
+                    const stripeCustomer = await this.stripeService.createCustomer(registerUserDto.user.full_name, registerUserDto.user.email);
                     const user = this.userRepository.create({
-                        full_name: userDTO.first_name + ' ' + userDTO.last_name,
-                        first_name: userDTO.first_name,
-                        last_name: userDTO.last_name,
-                        email: userDTO.email,
-                        password: userDTO.password,
+                        full_name: registerUserDto.user.full_name,
+                        email: registerUserDto.user.email,
+                        password: registerUserDto.user.password,
                         stripe_customer_id: stripeCustomer.id,
-                        stripe_card_id: userDTO.stripe_card_id,
-                        company_id: userDTO.company_id,
-                        invitation_id: userDTO.invitation_id,
-                        profile: userDTO.profile,
+                        stripe_card_id: registerUserDto.user.stripe_card_id,
+                        invitation_id: registerUserDto.user.invitation_id,
+                        profile: registerUserDto.user.profile,
                         created_at: new Date(),
                         updated_at: new Date(),
                     });
                     await manager.save(user);
+                    const company = await this.companyService.create(registerUserDto.company);
+                    await manager.save(company);
+                    const companyUserMap = await this.companyUserMapService.create(user.id, company.id);
+                    await manager.save(companyUserMap);
+                    const plan = await this.plansService.create(registerUserDto.plan);
+                    await manager.save(plan);
+                    const companiesPlans = await this.companiesPlansService.create(company.id, plan.id, user.id);
+                    await manager.save(companiesPlans);
+                    const userRole = await this.userRolesService.create(1, user.id, company.id);
+                    await manager.save(userRole);
                     resolve(user);
                 });
             }
@@ -110,6 +127,11 @@ UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.default)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        company_service_1.CompanyService,
+        plans_service_1.PlansService,
+        companies_plans_service_1.CompaniesPlansService,
+        companyUserMap_service_1.CompanyUserMapService,
+        user_roles_service_1.UserRolesService,
         stripe_service_1.default,
         typeorm_2.EntityManager])
 ], UsersService);

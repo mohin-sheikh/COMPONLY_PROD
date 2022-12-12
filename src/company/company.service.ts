@@ -19,16 +19,13 @@ export class CompanyService {
       .getOne();
   }
 
-  async create(createCompanyDto: CreateCompanyDto, name: string) {
-    const company = this.companyRepository.create({
+  async create(createCompanyDto: CreateCompanyDto) {
+    return this.companyRepository.create({
       name: createCompanyDto.name,
       logo: createCompanyDto.logo,
       seats: createCompanyDto.seats,
-      created_by: name,
       created_at: new Date(),
       updated_at: new Date(),
     });
-    await this.companyRepository.save(company);
-    return company;
   }
 }

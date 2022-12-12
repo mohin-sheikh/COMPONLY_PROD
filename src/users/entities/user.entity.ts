@@ -16,12 +16,6 @@ class Users {
   public full_name: string;
 
   @Column()
-  public first_name: string;
-
-  @Column()
-  public last_name: string;
-
-  @Column()
   public email: string;
 
   @Column()
@@ -43,9 +37,6 @@ class Users {
 
   @Column()
   public stripe_card_id: string;
-
-  @Column()
-  public company_id: string;
 
   @Column()
   public invitation_id: string;

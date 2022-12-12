@@ -13,5 +13,4 @@ export declare class AuthService {
         message: string;
         user: any;
     };
-    sendMail(email: string, subject: string, text: any): Promise<void>;
 }

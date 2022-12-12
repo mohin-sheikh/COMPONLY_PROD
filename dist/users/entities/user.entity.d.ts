@@ -1,15 +1,12 @@
 declare class Users {
     id: number;
     full_name: string;
-    first_name: string;
-    last_name: string;
     email: string;
     alternate_email: string;
     password: string;
     hashPassword(): Promise<void>;
     stripe_customer_id: string;
     stripe_card_id: string;
-    company_id: string;
     invitation_id: string;
     profile: string;
     otp: string;

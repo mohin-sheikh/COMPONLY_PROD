@@ -21,9 +21,14 @@ let UserRolesService = class UserRolesService {
     constructor(roleRepository) {
         this.roleRepository = roleRepository;
     }
-    async create(createUserRoleDto) {
-        const role = this.roleRepository.create(Object.assign(Object.assign({}, createUserRoleDto), { created_at: new Date(), updated_at: new Date() }));
-        await this.roleRepository.save(role);
+    async create(role_id, user_id, company_id) {
+        const role = this.roleRepository.create({
+            role_id: role_id,
+            user_id: user_id,
+            company_id: company_id,
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
         return role;
     }
 };

@@ -36,7 +36,7 @@ let CompanyController = class CompanyController {
                     response: {},
                 };
             }
-            const company = await this.companyService.create(createCompanyDto, request.user.full_name);
+            const company = await this.companyService.create(createCompanyDto);
             return {
                 status: common_1.HttpStatus.CREATED,
                 message: response_message_config_1.message.registerSuccess,

@@ -24,20 +24,14 @@ let ValidationPipe = class ValidationPipe {
                 response: {},
             });
         }
-        if (value.name) {
-            value.name = value.name.toLowerCase().trimStart().trimEnd();
-        }
-        if (value.first_name) {
-            value.first_name = value.first_name.toLowerCase().trimStart().trimEnd();
-        }
-        if (value.last_name) {
-            value.last_name = value.last_name.toLowerCase().trimStart().trimEnd();
+        if (value.full_name) {
+            value.full_name = value.full_name.toLowerCase().trimStart().trimEnd();
         }
         if (value.email) {
-            value.email = value.email.toLowerCase();
+            value.email = value.email.toLowerCase().trim();
         }
         if (value.alternate_email) {
-            value.alternate_email = value.alternate_email.toLowerCase();
+            value.alternate_email = value.alternate_email.toLowerCase().trim();
         }
         if (value.period) {
             value.period = value.period.toLowerCase();

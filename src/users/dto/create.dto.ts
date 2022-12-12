@@ -6,11 +6,7 @@ export class CreateDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  first_name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  last_name: string;
+  full_name: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -27,8 +23,6 @@ export class CreateDto {
   stripe_card_id: string;
 
   invitation_id: string;
-
-  company_id: string;
 
   @ApiProperty()
   profile: string;

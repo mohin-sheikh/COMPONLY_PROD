@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CompanyModule } from './company/company.module';
 import { CompaniesPlansModule } from './companies_plans/companies_plans.module';
 import { PlansModule } from './plans/plans.module';
+import { CompanyUserMapModule } from './companyUserMap/companyUserMap.module';
 import { RolesModule } from './roles/roles.module';
 import { UserRolesModule } from './user_roles/user_roles.module';
 import { InvitationsModule } from './invitations/invitations.module';
@@ -25,6 +26,7 @@ import { InvitationsModule } from './invitations/invitations.module';
     CompaniesPlansModule,
     PlansModule,
     InvitationsModule,
+    CompanyUserMapModule,
     RolesModule,
     UserRolesModule,
   ],

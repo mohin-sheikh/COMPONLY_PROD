@@ -19,6 +19,7 @@ PlansModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([plan_entity_1.default])],
         controllers: [plans_controller_1.PlansController],
         providers: [plans_service_1.PlansService],
+        exports: [plans_service_1.PlansService],
     })
 ], PlansModule);
 exports.PlansModule = PlansModule;

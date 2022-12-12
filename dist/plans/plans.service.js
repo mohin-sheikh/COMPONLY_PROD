@@ -23,7 +23,6 @@ let PlansService = class PlansService {
     }
     async create(createPlanDto) {
         const plan = this.planRepository.create(Object.assign(Object.assign({}, createPlanDto), { created_at: new Date(), updated_at: new Date() }));
-        await this.planRepository.save(plan);
         return plan;
     }
 };

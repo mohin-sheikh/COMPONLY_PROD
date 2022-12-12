@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const users_service_1 = require("../users/users.service");
 const config_1 = require("@nestjs/config");
-const mailgun = require("mailgun-js");
 let AuthService = class AuthService {
     constructor(userService, configService) {
         this.userService = userService;
@@ -31,26 +30,6 @@ let AuthService = class AuthService {
             message: 'User information from google',
             user: req.user,
         };
-    }
-    async sendMail(email, subject, text) {
-        const mg = mailgun({
-            apiKey: this.configService.get('API_KEY'),
-            domain: this.configService.get('DOMAIN'),
-            host: this.configService.get('MAILGUN_HOST'),
-        });
-        const data = {
-            from: this.configService.get('FROM_EMAIL'),
-            to: email,
-            subject: subject,
-            html: text,
-        };
-        mg.messages().send(data, function (error, body) {
-            if (error) {
-                console.log(error);
-            }
-            console.log(body);
-            return;
-        });
     }
 };
 AuthService = __decorate([

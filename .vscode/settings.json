@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["Companys", "COMPONLY", "nestjs", "tlds", "typeorm"]
+  "cSpell.words": [
+    "Companys",
+    "COMPONLY",
+    "MAILGUN",
+    "nestjs",
+    "tlds",
+    "typeorm"
+  ]
 }

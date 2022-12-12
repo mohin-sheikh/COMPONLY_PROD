@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Companies_plans from 'src/companies_plans/entities/companies_plan.entity';
 import { Repository } from 'typeorm';
-import { CreateCompaniesPlanDto } from './dto/create-companies_plan.dto';
 
 @Injectable()
 export class CompaniesPlansService {
@@ -11,18 +10,16 @@ export class CompaniesPlansService {
     private companiesPlansRepository: Repository<Companies_plans>,
   ) {}
 
-  async create(createCompaniesPlanDto: CreateCompaniesPlanDto, user: any) {
+  async create(company_id: number, plan_id: number, user_id: number) {
     const companiesPlan = this.companiesPlansRepository.create({
-      company_id: createCompaniesPlanDto.company_id,
-      plan_id: createCompaniesPlanDto.plan_id,
-      status: createCompaniesPlanDto.status,
-      admin_id: user.id,
-      updated_by: user.id,
+      company_id: company_id,
+      plan_id: plan_id,
+      admin_id: user_id,
+      updated_by: user_id,
       bought_at: new Date(),
       created_at: new Date(),
       updated_at: new Date(),
     });
-    await this.companiesPlansRepository.save(companiesPlan);
     return companiesPlan;
   }
 }

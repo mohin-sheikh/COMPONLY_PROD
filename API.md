@@ -80,8 +80,7 @@ Authorization=Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjeXB8Y2JmN
 
 ```json
 {
-    "first_name": "jagdish",
-    "last_name": "jadeja",
+    "full_name": "jagdish jadeja",
     "email": "jagdish@testmail.io",
     "password": "user123",
     "confirmPass": "user123",

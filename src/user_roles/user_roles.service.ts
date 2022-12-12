@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserRoleDto } from './dto/create-user_role.dto';
 import User_Roles from 'src/user_roles/entities/user_role.entity';
 import { Repository } from 'typeorm';
 
@@ -11,13 +10,14 @@ export class UserRolesService {
     private roleRepository: Repository<User_Roles>,
   ) {}
 
-  async create(createUserRoleDto: CreateUserRoleDto) {
+  async create(role_id: number, user_id: number, company_id: number) {
     const role = this.roleRepository.create({
-      ...createUserRoleDto,
+      role_id: role_id,
+      user_id: user_id,
+      company_id: company_id,
       created_at: new Date(),
       updated_at: new Date(),
     });
-    await this.roleRepository.save(role);
     return role;
   }
 }

@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import Companies from '../company/entities/company.entity';
 import Companies_plans from 'src/companies_plans/entities/companies_plan.entity';
 import Plans from 'src/plans/entities/plan.entity';
+import companyUserMap from 'src/companyUserMap/entities/companyUserMap';
 import Roles from 'src/roles/entities/role.entity';
 import User_Roles from 'src/user_roles/entities/user_role.entity';
 import Invitations from 'src/invitations/entities/invitation.entity';
@@ -26,6 +27,7 @@ import Invitations from 'src/invitations/entities/invitation.entity';
           Companies,
           Companies_plans,
           Plans,
+          companyUserMap,
           Roles,
           User_Roles,
           Invitations,

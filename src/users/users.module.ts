@@ -8,11 +8,19 @@ import { JwtModule } from '@nestjs/jwt';
 import StripeService from 'src/stripe/stripe.service';
 import { ConfigService } from '@nestjs/config';
 import { CompanyModule } from 'src/company/company.module';
+import { PlansModule } from 'src/plans/plans.module';
+import { CompanyUserMapModule } from 'src/companyUserMap/companyUserMap.module';
+import { UserRolesModule } from 'src/user_roles/user_roles.module';
+import { CompaniesPlansModule } from 'src/companies_plans/companies_plans.module';
 
 @Module({
   imports: [
     PassportModule,
     CompanyModule,
+    CompaniesPlansModule,
+    PlansModule,
+    CompanyUserMapModule,
+    UserRolesModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },

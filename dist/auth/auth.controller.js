@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
 const bcrypt = require("bcrypt");
-const create_dto_1 = require("../users/dto/create.dto");
 const validation_pipe_1 = require("../users/pipes/validation.pipe");
 const users_service_1 = require("../users/users.service");
 const user_validator_1 = require("../validator/user.validator");
@@ -29,15 +28,17 @@ const mailTemplate = require("../helper/template.helper");
 const forgot_passwordVerify_dto_1 = require("./dto/forgot-passwordVerify.dto");
 const response_message_config_1 = require("../config/response.message.config");
 const otp_service_helper_1 = require("../helper/otp.service.helper");
+const sendmail_helper_1 = require("../helper/sendmail.helper");
+const register_dto_1 = require("../users/dto/register.dto");
 let AuthController = class AuthController {
     constructor(authService, usersService) {
         this.authService = authService;
         this.usersService = usersService;
         this.logger = new common_1.Logger(auth_service_1.AuthService.name);
     }
-    async create(createUserDto) {
+    async create(registerUserDto) {
         try {
-            const findUser = await this.usersService.findByEmail(createUserDto.email);
+            const findUser = await this.usersService.findByEmail(registerUserDto.user.email);
             if (findUser) {
                 return {
                     status: common_1.HttpStatus.BAD_REQUEST,
@@ -45,8 +46,8 @@ let AuthController = class AuthController {
                     response: {},
                 };
             }
-            const user = await this.usersService.create(createUserDto);
-            await this.authService.sendMail(createUserDto.email, 'Welcome!', mailTemplate.welcome(user.first_name));
+            const user = await this.usersService.create(registerUserDto);
+            await (0, sendmail_helper_1.sendMail)(registerUserDto.user.email, 'Welcome!', mailTemplate.welcome(user.full_name));
             return {
                 status: common_1.HttpStatus.CREATED,
                 message: response_message_config_1.message.RegisterUserSuccess,
@@ -122,7 +123,7 @@ let AuthController = class AuthController {
             user.otp = (0, otp_service_helper_1.generateOTP)();
             user.code_expiry = moment().add(15, 'minutes').toDate();
             await this.usersService.add(user);
-            await this.authService.sendMail(forgotPasswordDTO.email, 'Verify Forgot Password', mailTemplate.forgotPass(user.first_name, user.otp));
+            await (0, sendmail_helper_1.sendMail)(forgotPasswordDTO.email, 'Verify Forgot Password', mailTemplate.forgotPass(user.full_name, user.otp));
             return {
                 status: common_1.HttpStatus.OK,
                 message: response_message_config_1.message.successSent,
@@ -191,17 +192,16 @@ let AuthController = class AuthController {
 };
 __decorate([
     (0, common_1.Post)('/register'),
-    (0, common_1.UsePipes)(new validation_pipe_1.ValidationPipe(user_validator_1.registerUserSchema)),
     (0, swagger_1.ApiCreatedResponse)({
         description: response_message_config_1.message.RegisterUserSuccess,
     }),
     (0, swagger_1.ApiBadRequestResponse)({
         description: response_message_config_1.message.alreadyUseEmail,
     }),
-    (0, swagger_1.ApiBody)({ type: create_dto_1.default }),
+    (0, swagger_1.ApiBody)({ type: register_dto_1.RegisterUserDto }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_dto_1.default]),
+    __metadata("design:paramtypes", [register_dto_1.RegisterUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
 __decorate([

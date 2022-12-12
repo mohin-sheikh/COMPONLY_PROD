@@ -29,10 +29,6 @@ __decorate([
     __metadata("design:type", Number)
 ], Companies.prototype, "seats", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Companies.prototype, "created_by", void 0);
-__decorate([
     (0, typeorm_1.Column)({
         default: false,
     }),

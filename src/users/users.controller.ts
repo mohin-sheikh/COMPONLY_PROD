@@ -140,17 +140,11 @@ export class UsersController {
       }
 
       const modify = {
-        full_name: null,
-        first_name:
-          updateUserDto.first_name === '' ||
-          updateUserDto.first_name === undefined
-            ? user.first_name
-            : updateUserDto.first_name,
-        last_name:
-          updateUserDto.last_name === '' ||
-          updateUserDto.last_name === undefined
-            ? user.last_name
-            : updateUserDto.last_name,
+        full_name:
+          updateUserDto.full_name === '' ||
+          updateUserDto.full_name === undefined
+            ? user.full_name
+            : updateUserDto.full_name,
         email:
           updateUserDto.email === '' || updateUserDto.email === undefined
             ? user.email
@@ -166,7 +160,6 @@ export class UsersController {
             : updateUserDto.profile,
         updated_at: new Date(),
       };
-      modify.full_name = modify.first_name + ' ' + modify.last_name;
 
       await this.usersService.update(user.id, modify);
       return {

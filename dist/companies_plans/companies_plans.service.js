@@ -21,18 +21,16 @@ let CompaniesPlansService = class CompaniesPlansService {
     constructor(companiesPlansRepository) {
         this.companiesPlansRepository = companiesPlansRepository;
     }
-    async create(createCompaniesPlanDto, user) {
+    async create(company_id, plan_id, user_id) {
         const companiesPlan = this.companiesPlansRepository.create({
-            company_id: createCompaniesPlanDto.company_id,
-            plan_id: createCompaniesPlanDto.plan_id,
-            status: createCompaniesPlanDto.status,
-            admin_id: user.id,
-            updated_by: user.id,
+            company_id: company_id,
+            plan_id: plan_id,
+            admin_id: user_id,
+            updated_by: user_id,
             bought_at: new Date(),
             created_at: new Date(),
             updated_at: new Date(),
         });
-        await this.companiesPlansRepository.save(companiesPlan);
         return companiesPlan;
     }
 };

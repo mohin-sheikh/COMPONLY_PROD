@@ -5,5 +5,5 @@ export declare class CompanyService {
     private companyRepository;
     constructor(companyRepository: Repository<companies>);
     findByName(name: any): Promise<companies>;
-    create(createCompanyDto: CreateCompanyDto, name: string): Promise<companies>;
+    create(createCompanyDto: CreateCompanyDto): Promise<companies>;
 }
